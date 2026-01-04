@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>鹿港 SQUAD 友情大會考（自動算分版）</title>
+<style>
+  :root { --bg:#fafafa; --card:#fff; --text:#222; --muted:#666; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--bg); color:var(--text); margin:0; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 20px; }
+  h1 { margin: 10px 0 6px; font-size: 26px; }
+  .sub { color: var(--muted); margin: 0 0 18px; line-height:1.4; }
+  .card { background:var(--card); border-radius: 14px; padding: 16px 16px 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 14px; }
+  .qtitle { font-weight: 700; margin: 0 0 10px; line-height:1.35; }
+  .opt { display:flex; gap:10px; align-items:flex-start; padding:8px 10px; border-radius: 12px; }
+  .opt:hover { background:#f3f3f3; }
+  input[type="radio"] { margin-top: 2px; transform: scale(1.05); }
+  .req { color:#b00020; font-size: 12px; margin-top: 6px; display:none; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+  button { padding: 12px 16px; font-size: 16px; border-radius: 12px; border: 0; cursor: pointer; }
+  .primary { background:#111; color:#fff; }
+  .ghost { background:#e9e9e9; color:#111; }
+  .result { display:none; }
+  .scorebox { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .pill { display:inline-block; padding:6px 10px; border-radius: 999px; background:#f0f0f0; font-size: 13px; }
+  .big { font-size: 34px; font-weight: 800; }
+  .rank { font-size: 18px; font-weight: 700; }
+  .divider { height:1px; background:#eee; margin:12px 0; }
+  .fb { margin:10px 0 0; padding:10px 12px; border-radius: 12px; background:#f7f7f7; line-height:1.5; }
+  .fb.correct { background:#eef9f0; }
+  .fb.wrong { background:#fff1f1; }
+  .small { color:var(--muted); font-size: 13px; line-height:1.5; }
+  .foot { color:var(--muted); font-size: 12px; margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🦌⚡ 鹿港 SQUAD 友情大會考</h1>
+  <p class="sub">自動算分＋逐題回饋版。<br>⚠️ 答錯不會被踢，但會被記在心裡。</p>
+
+  <form id="quiz">
+
+    <div class="card" data-q="1">
+      <div class="qtitle">1. 貼圖大戰真正的導火線是？</div>
+      <label class="opt"><input type="radio" name="q1" value="A"><span>A. 小拳石🪨：「什麼逼貼圖」</span></label>
+      <label class="opt"><input type="radio" name="q1" value="B"><span>B. YJ：「我們要貼圖大戰嗎」</span></label>
+      <label class="opt"><input type="radio" name="q1" value="C"><span>C. 詳：「幹超吵」</span></label>
+      <label class="opt"><input type="radio" name="q1" value="D"><span>D. P：「這好好用」</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="2">
+      <div class="qtitle">2.「我本來想直接踢掉你了」後面補的是？</div>
+      <label class="opt"><input type="radio" name="q2" value="A"><span>A. 踢人前要先投票</span></label>
+      <label class="opt"><input type="radio" name="q2" value="B"><span>B. 踢人不要先說，要先踢</span></label>
+      <label class="opt"><input type="radio" name="q2" value="C"><span>C. 下次直接已讀不回</span></label>
+      <label class="opt"><input type="radio" name="q2" value="D"><span>D. 群組沉了再說</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="3">
+      <div class="qtitle">3. 說群組會沉的是誰？YJ 第一反應是？</div>
+      <label class="opt"><input type="radio" name="q3" value="A"><span>A. P → 說不可能</span></label>
+      <label class="opt"><input type="radio" name="q3" value="B"><span>B. 詳 → 說不會</span></label>
+      <label class="opt"><input type="radio" name="q3" value="C"><span>C. 詳 → 開始刷貼圖</span></label>
+      <label class="opt"><input type="radio" name="q3" value="D"><span>D. 小拳石🪨 → 情勒大法</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="4">
+      <div class="qtitle">4. 通知不跳時，YJ 的回應？</div>
+      <label class="opt"><input type="radio" name="q4" value="A"><span>A. 換手機</span></label>
+      <label class="opt"><input type="radio" name="q4" value="B"><span>B. 重開機</span></label>
+      <label class="opt"><input type="radio" name="q4" value="C"><span>C. 跟臉書一樣</span></label>
+      <label class="opt"><input type="radio" name="q4" value="D"><span>D. 罵 LINE 很爛</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="5">
+      <div class="qtitle">5.「鹿港背王上線啦」的背景？</div>
+      <label class="opt"><input type="radio" name="q5" value="A"><span>A. P 打完針、手指好多了、準備練背</span></label>
+      <label class="opt"><input type="radio" name="q5" value="B"><span>B. 詳在駕訓班睡過頭</span></label>
+      <label class="opt"><input type="radio" name="q5" value="C"><span>C. 小拳石🪨肩膀壞掉</span></label>
+      <label class="opt"><input type="radio" name="q5" value="D"><span>D. 討論健身房要不要揪</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="6">
+      <div class="qtitle">6. 警車＋按摩店事件的轉折點？</div>
+      <label class="opt"><input type="radio" name="q6" value="A"><span>A. 詳說自己拍好幹片</span></label>
+      <label class="opt"><input type="radio" name="q6" value="B"><span>B. 小拳石🪨說可以發抖音</span></label>
+      <label class="opt"><input type="radio" name="q6" value="C"><span>C. 詳說「我是純愛戰士」</span></label>
+      <label class="opt"><input type="radio" name="q6" value="D"><span>D. YJ 開始問按摩店細節</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="7">
+      <div class="qtitle">7. 最能證實純愛戰士的一句話？</div>
+      <label class="opt"><input type="radio" name="q7" value="A"><span>A. 「必要的時候我會出手」</span></label>
+      <label class="opt"><input type="radio" name="q7" value="B"><span>B. 「怕沒人懂梗」</span></label>
+      <label class="opt"><input type="radio" name="q7" value="C"><span>C. 「我就說我是純愛戰士了」</span></label>
+      <label class="opt"><input type="radio" name="q7" value="D"><span>D. 「賣屁股」</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="8">
+      <div class="qtitle">8. 咒術迴戰中讓 YJ 心碎的是？</div>
+      <label class="opt"><input type="radio" name="q8" value="A"><span>A. 五條悟</span></label>
+      <label class="opt"><input type="radio" name="q8" value="B"><span>B. 娜娜米</span></label>
+      <label class="opt"><input type="radio" name="q8" value="C"><span>C. 芥見下下地獄</span></label>
+      <label class="opt"><input type="radio" name="q8" value="D"><span>D. 乙骨</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="9">
+      <div class="qtitle">9. 「原來這就是你們錯過彼此的原因」當下在吵什麼？</div>
+      <label class="opt"><input type="radio" name="q9" value="A"><span>A. 舒芙蕾要不要拌</span></label>
+      <label class="opt"><input type="radio" name="q9" value="B"><span>B. 鬆餅怎麼吃</span></label>
+      <label class="opt"><input type="radio" name="q9" value="C"><span>C. 咖哩要不要拌開</span></label>
+      <label class="opt"><input type="radio" name="q9" value="D"><span>D. 深夜福利能不能發</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="card" data-q="10">
+      <div class="qtitle">10. 環球影城最大悲劇的原因？</div>
+      <label class="opt"><input type="radio" name="q10" value="A"><span>A. 大家太怕刺激</span></label>
+      <label class="opt"><input type="radio" name="q10" value="B"><span>B. 太貴</span></label>
+      <label class="opt"><input type="radio" name="q10" value="C"><span>C. 太晚買賣完</span></label>
+      <label class="opt"><input type="radio" name="q10" value="D"><span>D. 考試壓力</span></label>
+      <div class="req">這題還沒選喔。</div>
+      <div class="fb" style="display:none;"></div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" type="button" id="submitBtn">送出並算分</button>
+      <button class="ghost" type="button" id="resetBtn">重做一次</button>
+    </div>
+
+  </form>
+
+  <div class="card result" id="resultCard">
+    <div class="scorebox">
+      <div class="big" id="scoreText">0/10</div>
+      <div>
+        <div class="rank" id="rankText">稱號：—</div>
+        <div class="small" id="rankDesc">—</div>
+      </div>
+      <span class="pill" id="timestamp"></span>
+    </div>
+    <div class="divider"></div>
+    <div class="small">✅ 你可以往上看每題的回饋（會標示正確答案）。</div>
+  </div>
+
+  <div class="foot">小提醒：這份是離線表單（不會自動回收答案）。如果你想要「收集大家答案＋統計」，我也可以幫你改成可下載 CSV 的版本。</div>
+</div>
+
+<script>
+  // 正確答案
+  const key = {
+    q1: "B",
+    q2: "B",
+    q3: "B",
+    q4: "C",
+    q5: "A",
+    q6: "C",
+    q7: "C",
+    q8: "B",
+    q9: "C",
+    q10:"C"
+  };
+
+  // 回饋文字（你要更毒舌也可以再調）
+  const feedback = {
+    q1: {
+      correct: "OK，你有見證戰火點燃的瞬間。",
+      wrong: "這題錯＝你當時根本沒在看群組（或你只會刷貼圖）。"
+    },
+    q2: {
+      correct: "恭喜，你懂成熟的踢人哲學：先踢再說。",
+      wrong: "你這個不懂群組潛規則。"
+    },
+    q3: {
+      correct: "對，這題是「預言者＋安撫者」的組合。",
+      wrong: "你把情勒、貼圖跟安撫搞混了（太危險）。"
+    },
+    q4: {
+      correct: "沒錯，科技受害者同盟成立。",
+      wrong: "你是不是沒看到 YJ 罵手機的那段。"
+    },
+    q5: {
+      correct: "有在追健身支線劇情 ✔ 鹿港背王名不虛傳。",
+      wrong: "鹿港背王都不認得，失格。"
+    },
+    q6: {
+      correct: "人設確立瞬間：純愛戰士出征。",
+      wrong: "你只看到警車，沒看到靈魂人設。"
+    },
+    q7: {
+      correct: "對，就是那句「我就說…」自己幫自己蓋章。",
+      wrong: "你不相信他？那你就是不相信鹿港的愛。"
+    },
+    q8: {
+      correct: "OK，你記得那個不能再提的名字。",
+      wrong: "你沒有跟 YJ 一起心碎（你不夠鹿港）。"
+    },
+    q9: {
+      correct: "飲食價值觀對齊成功。",
+      wrong: "這題錯＝你們錯過彼此不是沒有原因。"
+    },
+    q10: {
+      correct: "沒錯，一切悲劇的起點：拖延。",
+      wrong: "你低估了『太晚買』對人生的破壞力。"
+    }
+  };
+
+  function getSelected(name){
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : null;
+  }
+
+  function showReq(card, show){
+    const req = card.querySelector(".req");
+    req.style.display = show ? "block" : "none";
+  }
+
+  function setFeedback(card, isCorrect, correctLetter, pickedLetter, msg){
+    const fb = card.querySelector(".fb");
+    fb.style.display = "block";
+    fb.classList.remove("correct","wrong");
+    fb.classList.add(isCorrect ? "correct" : "wrong");
+
+    // 找出正確選項文字
+    const correctLabel = card.querySelector(`input[value="${correctLetter}"]`)?.parentElement?.innerText?.trim() || `正確答案：${correctLetter}`;
+    const pickedLabel = pickedLetter ? (card.querySelector(`input[value="${pickedLetter}"]`)?.parentElement?.innerText?.trim() || `你的答案：${pickedLetter}`) : "你未作答";
+
+    fb.innerHTML = `
+      <div><strong>${isCorrect ? "✅ 答對" : "❌ 答錯"}</strong></div>
+      <div class="small">你的答案：${pickedLabel}</div>
+      <div class="small">正確答案：${correctLabel}</div>
+      <div style="margin-top:6px;">${msg}</div>
+    `;
+  }
+
+  function rankFor(score){
+    if(score >= 9) return ["鹿港 SQUAD 核心成員", "你不是在群組，你就是群組本身。"];
+    if(score >= 6) return ["有在看，但偶爾神遊", "你會回，但你也會消失。合理。"];
+    if(score >= 3) return ["潛水怪", "你在群組的存在感像通知：偶爾才跳。"];
+    return ["路過的人", "你是誰？誰拉你進來的？"];
+  }
+
+  document.getElementById("submitBtn").addEventListener("click", () => {
+    const cards = document.querySelectorAll(".card[data-q]");
+    let score = 0;
+    let anyMissing = false;
+
+    cards.forEach((card) => {
+      const qnum = card.getAttribute("data-q");
+      const qname = "q" + qnum;
+      const picked = getSelected(qname);
+      const correct = key[qname];
+
+      if(!picked){
+        anyMissing = true;
+        showReq(card, true);
+      } else {
+        showReq(card, false);
+      }
+
+      const isCorrect = picked === correct;
+      if(isCorrect) score++;
+
+      const msg = isCorrect ? feedback[qname].correct : feedback[qname].wrong;
+      setFeedback(card, isCorrect, correct, picked, msg);
+    });
+
+    // 顯示結果
+    const [rank, desc] = rankFor(score);
+    document.getElementById("scoreText").textContent = `${score}/10`;
+    document.getElementById("rankText").textContent = `稱號：${rank}`;
+    document.getElementById("rankDesc").textContent = desc;
+    document.getElementById("timestamp").textContent = `作答時間：${new Date().toLocaleString("zh-Hant-TW")}`;
+    document.getElementById("resultCard").style.display = "block";
+
+    // 若有漏答，提醒但仍可看回饋
+    if(anyMissing){
+      alert("有題目沒選到喔～我已經在沒作答的題目下方標示了。你也可以先看回饋再補選重送。");
+    }
+
+    // 滾到結果卡
+    document.getElementById("resultCard").scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    document.getElementById("quiz").reset();
+    document.querySelectorAll(".req").forEach(el => el.style.display="none");
+    document.querySelectorAll(".fb").forEach(el => { el.style.display="none"; el.classList.remove("correct","wrong"); el.innerHTML=""; });
+    document.getElementById("resultCard").style.display = "none";
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+</script>
+</body>
+</html>
